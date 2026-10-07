@@ -10,6 +10,20 @@ alerts, and news. **100% free data sources, no paid APIs, no accounts required.*
 > all data comes from free, keyless public APIs with automatic multi-source
 > failover so rate limits rarely bite.
 
+## 📸 Screenshots
+
+| Home — Bitcoin hero chart, top markets & hot news | Coin detail — Binance-style layout |
+| :---: | :---: |
+| ![Home (dark)](./docs/screenshots/home-dark.png) | ![Coin detail](./docs/screenshots/coin-dark.png) |
+
+| Candlestick chart (Candle + indicators) | News feed |
+| :---: | :---: |
+| ![Candlestick chart](./docs/screenshots/coin-candle-dark.png) | ![News](./docs/screenshots/news-dark.png) |
+
+| Home (light theme) |
+| :---: |
+| ![Home (light)](./docs/screenshots/home-light.png) |
+
 ## Stack
 
 | Layer     | Tech                                                                 |
@@ -26,6 +40,7 @@ alerts, and news. **100% free data sources, no paid APIs, no accounts required.*
 - 📊 **Markets dashboard** — global market cap, BTC/ETH dominance, Fear & Greed gauge
 - 📈 **Coin detail (Binance-style)** — header + 24h stat strip, tabbed Chart/Info/News, chart-left & order-book-right layout
 - 🕯️ **Rich chart** — chart types (Area / Line / Candle / Bar), ranges, fullscreen, reset zoom
+- 🔗 **Deep-linkable charts** — share a URL with the exact view, e.g. `/coin/bitcoin?type=candle&range=30`
 - 📐 **Technical indicators** — SMA 20/50, EMA 200, Bollinger Bands, Volume, RSI (14), MACD (12,26,9)
 - 🌡️ **Order book heatmap** — live bid/ask depth with liquidity intensity bars + spread
 - ⚡ **Realtime trades** — streaming trade tape (price/size/side/value), pausable

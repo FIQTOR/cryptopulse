@@ -20,13 +20,29 @@ const FEEDS: Array<{ source: string; url: string }> = [
   { source: 'Decrypt', url: 'https://decrypt.co/feed' },
 ];
 
+/** Decode the handful of HTML entities that show up in RSS text. */
+export function decodeEntities(s: string): string {
+  return s
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    // &amp; must be decoded last so `&amp;lt;` becomes `&lt;`, not `<`.
+    .replace(/&amp;/g, '&');
+}
+
 function extract(xml: string, tag: string): string {
   const m = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, 'i'));
   if (!m) return '';
-  return m[1]
+  const text = m[1]
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
     .replace(/<[^>]+>/g, '')
     .trim();
+  return decodeEntities(text);
 }
 
 function extractAll(xml: string, tag: string): string[] {

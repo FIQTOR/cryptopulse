@@ -129,6 +129,10 @@ The Vite dev server proxies `/api` → `http://localhost:8787` and `/ws` →
   displaying in a non-USD currency. **Never** show a raw USDT number under an IDR/EUR label.
 - Charts live in `components/PriceChart.tsx`; indicators are pure functions in
   `lib/indicators.ts` (keep them dependency-free and tested).
+- Chart view state (type/range) is deep-linkable via query params on `/coin/:id`
+  (`?type=candle&range=30`). When adding view state, follow the same
+  `useSearchParams` + `{ replace: true }` pattern so links stay shareable without
+  spamming history.
 
 ---
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api';
 import { useSettings, useWatchlist } from '../lib/store';
@@ -18,14 +18,39 @@ import { clsx } from 'clsx';
 
 type Tab = 'chart' | 'info' | 'news';
 
+const VALID_TYPES: ChartType[] = ['area', 'line', 'candle', 'bar'];
+const VALID_RANGES: ChartRange[] = ['1', '7', '30', '90', '365', 'max'];
+
 export function CoinPage() {
   const { id = 'bitcoin' } = useParams();
   const currency = useSettings((s) => s.currency);
-  const [range, setRange] = useState<ChartRange>('7');
-  const [chartType, setChartType] = useState<ChartType>('area');
+  const [params, setParams] = useSearchParams();
+  const paramType = params.get('type') as ChartType | null;
+  const paramRange = params.get('range') as ChartRange | null;
+  const [range, setRangeState] = useState<ChartRange>(
+    paramRange && VALID_RANGES.includes(paramRange) ? paramRange : '7',
+  );
+  const [chartType, setChartTypeState] = useState<ChartType>(
+    paramType && VALID_TYPES.includes(paramType) ? paramType : 'area',
+  );
   const [indicators, setIndicators] = useState<IndicatorConfig>(DEFAULT_INDICATORS);
   const [tab, setTab] = useState<Tab>('chart');
   const has = useWatchlist((s) => s.has(id));
+
+  // Keep chart state deep-linkable (?type=candle&range=30) without clobbering
+  // other params or polluting browser history.
+  const setRange = (r: ChartRange) => {
+    setRangeState(r);
+    const next = new URLSearchParams(params);
+    next.set('range', r);
+    setParams(next, { replace: true });
+  };
+  const setChartType = (t: ChartType) => {
+    setChartTypeState(t);
+    const next = new URLSearchParams(params);
+    next.set('type', t);
+    setParams(next, { replace: true });
+  };
 
   const coinQ = useQuery({ queryKey: ['coin', id], queryFn: () => api.coin(id) });
   const chartQ = useQuery({

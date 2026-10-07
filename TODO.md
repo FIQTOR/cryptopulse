@@ -35,3 +35,10 @@
 - [x] frontend tsc + lint + 33 tests
 - [x] build
 - [x] e2e smoke + failover test
+
+## 7. Open source · polish ✅
+- [x] README screenshots (home dark/light, coin detail, candle, news)
+- [x] Deep-linkable chart state (`/coin/:id?type=candle&range=30`)
+- [x] Fix news HTML entities (`&#39;` → `'`, `&amp;` decoded last) + 4 tests
+- [x] AGENTS.md / CONTRIBUTING.md / LICENSE (MIT)
+- [x] Public repo FIQTOR/cryptopulse, tag v1.0.0 + release, topics
