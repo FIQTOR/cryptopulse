@@ -1,0 +1,13 @@
+{
+  "name": "cryptopulse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live crypto dashboard — free data sources only",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "test": "npm --prefix backend test && npm --prefix frontend test",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install"
+  }
+}
